@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
   };
 
   soap.createClient(cidadesUrl, function(err, client) {
-    if(err) {
+    if (err) {
       res.status(404);
       res.json({
         err: err,
@@ -19,16 +19,16 @@ router.get('/', function(req, res, next) {
       return;
     }
 
-    if(!client) {
+    if (!client) {
       res.status(404);
       res.json({
-        message:"Erro: Não foi possível obter um cliente para o webservice."
+        message: "Erro: Não foi possível obter um cliente para o webservice."
       });
       return;
     }
 
     client.getMunicipios(args, function(err, result) {
-      if(err) {
+      if (err) {
         res.status(404);
         res.json({
           err: err,
@@ -37,7 +37,7 @@ router.get('/', function(req, res, next) {
         return;
       }
 
-      if(!result) {
+      if (!result) {
         res.status(404);
         res.json({
           message: "Erro: Nenhum resultado foi obtido."
