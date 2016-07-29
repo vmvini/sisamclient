@@ -6,13 +6,12 @@ var variaveisUrl = 'http://sisam.cptec.inpe.br/sisam_webservice/services/Variave
 
 var requestSoapClient = createRequestSoapClient(router);
 
+
 requestSoapClient(variaveisUrl, function(client, req, errcallback, resultcallback){
 
 	var args = {};
 
-	console.log("carregando variaveis");
-
-	client.getListaVariaveis(args, function(err, result){
+	client.getListaVariaveisDesc(args, function(err, result){
 		
 		errcallback(err);
 		

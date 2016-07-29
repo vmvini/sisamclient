@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var cidades = require('./routes/cidades');
 var variaveis = require('./routes/variaveis');
-var variaveisDesc = require('./routes/variaveis_desc');
+var vardetails = require('./routes/vardetails');
 
 var app = express();
 
@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/cidades', cidades);
 app.use('/variaveis', variaveis);
-app.use('/vardetails', variaveisDesc);
+app.use('/vardetails', vardetails);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
