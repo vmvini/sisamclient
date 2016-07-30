@@ -1,9 +1,9 @@
 var soap = require('soap');
 
-var createRequestSoapClient = function(router){
+var createRequestSoapClient = function(req, res){
 
 	return function(wsdl, clientSoapCallback){
-		router.get('/', function(req, res, next){
+		//router.get('/', function(req, res, next){
 			console.log("recebeu requisicao");
 			soap.createClient(wsdl, function(err, client){
 				var soapClient;
@@ -21,20 +21,18 @@ var createRequestSoapClient = function(router){
 
 				console.log("recebeu cliente webservice");
 
-				soapClient = new SoapClient(client, res);
+				soapClient = new SoapClient(client);
 
 				console.log("construiu soapClient");
 
-				clientSoapCallback(soapClient, req, res);
+				clientSoapCallback(soapClient);
 
 			});
-		});
+		//});
 
 	};
-
-
-
-	function SoapClient(client, res){
+	
+	function SoapClient(client){
 
 		var args;
 		var methodToCall;

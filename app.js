@@ -5,14 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var cidades = require('./routes/cidades');
-var estados = require('./routes/estados');
-var variaveis = require('./routes/variaveis');
-var vardetails = require('./routes/vardetails');
-var meses = require('./routes/meses');
-var anos = require('./routes/anos');
-var tabulado = require('./routes/tabulado');
+
 
 var app = express();
 
@@ -28,14 +21,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/cidades', cidades);
-app.use('/variaveis', variaveis);
-app.use('/vardetails', vardetails);
-app.use('/estados', estados);
-app.use('/meses', meses);
-app.use('/anos', anos);
-app.use('/tabulado', tabulado);
+var sisamapi = require('./restapi/routes/sisamapi');
+
+app.use('/', sisamapi);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -43,6 +32,24 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
+
+
+//central route to Single Page App
+app.get('/', function(req, res){
+
+  res.sendFile(__dirname + '/app_server/template/template.html');
+
+});
+
+app.get('*', function(req, res){
+
+  res.status(404);
+  res.json({"message":"page not found"});
+
+});
+
+
 
 // error handlers
 
