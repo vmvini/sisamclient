@@ -7,8 +7,12 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var cidades = require('./routes/cidades');
+var estados = require('./routes/estados');
 var variaveis = require('./routes/variaveis');
 var vardetails = require('./routes/vardetails');
+var meses = require('./routes/meses');
+var anos = require('./routes/anos');
+var tabulado = require('./routes/tabulado');
 
 var app = express();
 
@@ -28,6 +32,10 @@ app.use('/', routes);
 app.use('/cidades', cidades);
 app.use('/variaveis', variaveis);
 app.use('/vardetails', vardetails);
+app.use('/estados', estados);
+app.use('/meses', meses);
+app.use('/anos', anos);
+app.use('/tabulado', tabulado);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
