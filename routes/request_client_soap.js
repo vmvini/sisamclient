@@ -1,13 +1,13 @@
 var soap = require('soap');
 
-
 var createRequestSoapClient = function(router){
 
 	return function(wsdl, clientSoapCallback){
 		router.get('/', function(req, res, next){
-
 			console.log("recebeu requisicao");
 			soap.createClient(wsdl, function(err, client){
+				var soapClient;
+
 				if(err){
 					res.status(404);
 					res.json({err:err, message: "erro ao conectar com webservice"});
@@ -21,31 +21,58 @@ var createRequestSoapClient = function(router){
 
 				console.log("recebeu cliente webservice");
 
-				clientSoapCallback(client, req, function(err){
+				soapClient = new SoapClient(client, res);
 
-					if(err){
-						res.status(404);
-						res.json({err:err, message: "erro ao chamar método"});
-						return;
-					}
+				console.log("construiu soapClient");
 
-				}, function(result){
-
-					if(!result){
-						res.status(404);
-						res.json({message: "resultado nulo!"});
-						return;
-					}
-
-					res.status(200);
-					res.json({message:"success", result:result});
-
-				});
+				clientSoapCallback(soapClient, req, res);
 
 			});
 		});
 
 	};
+
+
+
+	function SoapClient(client, res){
+
+		var args;
+		var methodToCall;
+
+		this.setArgs = function(argsParam){
+			args = argsParam;
+			return this;
+		};
+
+		this.setMethodToCall = function(callback){
+			methodToCall = callback(client);
+			return this;
+		};
+
+
+		this.execute = function(){
+			methodToCall.call(client, args, function(err, result){
+
+				if(err){
+					res.status(404);
+					res.json({err:err, message: "erro ao chamar método"});
+					return;
+				}
+
+				if(!result){
+					res.status(404);
+					res.json({message: "resultado nulo!"});
+					return;
+				}
+
+				res.status(200);
+				res.json({message:"success", result:result});
+
+			} );
+		};
+
+	}
+
 
 }
 
