@@ -14,7 +14,7 @@ requestSoapClient(wsdl, function(soapClient, req, res){
   soapClient
     .setArgs(args)
     .setMethodToCall( function(client){
-      return client.getMunicipios;
+      return client.getEstados;
     })
     .execute();
 
