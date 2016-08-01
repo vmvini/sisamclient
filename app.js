@@ -26,19 +26,10 @@ var sisamapi = require('./restapi/routes/sisamapi');
 app.use('/', sisamapi);
 
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-
-
 //central route to Single Page App
 app.get('/', function(req, res){
 
-  res.sendFile(__dirname + '/app_server/template/template.html');
+  res.sendFile(__dirname + '/views/template.html');
 
 });
 
@@ -48,6 +39,18 @@ app.get('*', function(req, res){
   res.json({"message":"page not found"});
 
 });
+
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
+});
+
+
+
+
 
 
 
