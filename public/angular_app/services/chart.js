@@ -54,8 +54,11 @@
 
 			//Configurando Eixos
 			xAxis = new Axis(xTimeScale.scale);
-			xAxis.create(5, "top");
-			xAxis.draw(svgContainer.svg, "x axis", "black");
+			xAxis.create(5, "bottom");
+			xAxis.draw(svgContainer.svg, "x axis", "black", function(svg){
+				svg.attr("transform", "translate(0," + svgContainer.height + ")");
+			});
+
 
 			yAxisLeft = new Axis(y0Scale.scale);
 			yAxisLeft.create(5, "left");
@@ -63,7 +66,10 @@
 
 			yAxisRight = new Axis(y1Scale.scale);
 			yAxisRight.create(5, "right");
-			yAxisRight.draw(svgContainer.svg, "y axis", "red");
+			yAxisRight.draw(svgContainer.svg, "y axis", "red", function(svg){
+				svg.attr("transform", "translate(" + svgContainer.width + " ,0)") 
+			});
+
 
 
 
@@ -167,12 +173,15 @@
     			.orient(orient).ticks(tick);
 		};	
 
-		this.draw = function(svg, axisClass, numberColor){
-			svg.append("g")				
+		this.draw = function(svg, axisClass, numberColor, transform){
+			var o = svg.append("g")				
 		        .attr("class", axisClass)
-		        //.attr("transform", "translate(" + width + " ,0)")	
 		        .style("fill", numberColor)		
 		        .call(axis);
+
+		    if(transform){
+		    	transform(o);
+		    }
 		};
 
 	}
@@ -182,7 +191,7 @@
 		this.width = w - margin.left - margin.right,
     	this.height = h - margin.top - margin.bottom;
 
-    	this.svg = d3.select("body")
+    	this.svg = d3.select("#svgContainer")
 		    .append("svg")
 		        .attr("width", this.width + margin.left + margin.right)
 		        .attr("height", this.height + margin.top + margin.bottom)

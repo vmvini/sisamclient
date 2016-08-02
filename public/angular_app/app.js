@@ -1,6 +1,6 @@
 (function(){
 
-	angular.module('sisamclient', ['ngRoute', 'ui.multiselect'])
+	angular.module('sisamclient', ['ngRoute', 'ui.multiselect', 'angucomplete-alt'])
 		.config(['$routeProvider', config]);
 
 

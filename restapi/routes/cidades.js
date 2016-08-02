@@ -2,11 +2,11 @@ var router = require('express').Router();
 var wsdl = 'http://sisam.cptec.inpe.br/sisam_webservice/services/CidadesWebService?wsdl';
 var controller = require('rest-to-soap-mapper');
 
-router.post('/cidades', validateParams, controller(wsdl, setMethodToCall, setArgs ) );
+router.get('/cidades', validateParams, controller(wsdl, setMethodToCall, setArgs ) );
 
 function setArgs(req){
 	return {
-		cidade: req.body.cidade
+		cidade: req.query.cidade
 	};
 }
 
@@ -15,7 +15,7 @@ function setMethodToCall(client){
 }
 
 function validateParams(req, res, next){
-	if(!req.body.cidade){
+	if(!req.query.cidade){
 		res.status(404);
 		res.json({"message":"cidade não presente na requisição"});
 		return;

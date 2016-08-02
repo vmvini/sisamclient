@@ -5,8 +5,8 @@
 		.controller('indexCtrl', indexCtrl);
 
 
-	indexCtrl.$inject = ['sisamservice', 'chartservice'];
-	function indexCtrl(sisamservice, chartservice){
+	indexCtrl.$inject = ['sisamservice', 'chartservice', '$scope'];
+	function indexCtrl(sisamservice, chartservice, $scope){
 
 		var vm = this;
 
@@ -26,14 +26,35 @@
 			data_final:null,
 			opc_estMun:"municipio",
 			estado:[],
-			municipio:["3976"],
+			municipio:["5530"],
 			vars:["focoq",
 				"rad_uv"
 			]
 
 		};
 
-		sisamservice.getTabulado({tabulado: vm.tabulado})
+		vm.cidadeSelecionada = function(d){
+			console.log("selecionou uma cidade", d);
+			vm.tabulado.municipio = [d.originalObject.gid];
+			load();
+
+		};
+
+		vm.varVermelhaSelecionada = function(d){
+			console.log("selecionou uma var vermelha", d);
+			vm.tabulado.vars[0] = [d.originalObject.nome_banco];
+			load();
+		};
+
+		vm.varAzulSelecionada = function(d){
+			console.log("selecionou uma var azul", d);
+			vm.tabulado.vars[1] = [d.originalObject.nome_banco];
+			load();
+		};
+
+
+		function load(){
+			sisamservice.getTabulado({tabulado: vm.tabulado})
 			.success(function(data){
 				console.log("sucesso");
 				chartservice.drawChart(data.result.getDadosTabuladosReturn, vm.tabulado.vars[0], vm.tabulado.vars[1]);
@@ -43,6 +64,14 @@
 				console.log(data);
 			});
 
+		}
+
+		$scope.$on('$viewContentLoaded', function() {
+		    load();
+		});
+
+		
+		
 		/*sisamservice.getAnos()
 			.success(function(data){
 				console.log("sucesso ao pegar anos");
