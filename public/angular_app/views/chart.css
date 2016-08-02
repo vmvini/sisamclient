@@ -17,3 +17,7 @@ path {
 #svgContainer{
 	text-align:center;
 }
+
+.container{
+	padding:60px;
+}

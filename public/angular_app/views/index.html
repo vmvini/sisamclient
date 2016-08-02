@@ -6,7 +6,6 @@
 
 <div class="container">
 
-	<!--div class="wrapper"-->
 
 		<div id="svgContainer">
 
@@ -24,24 +23,31 @@
 
 
 		<h3>Variavel Azul</h3>
-		<angucomplete-alt id="varazul"
+		<select ng-model="vm.bluevar" ng-change="vm.selectBlueVar()" class="form-control">
+                          <option ng-repeat="var in vm.bluevarList" value="{{var.nome_banco}}" >{{var.nome}}</option>
+                        </select>
+
+		<!--angucomplete-alt id="varazul"
 		              placeholder="variavel azul"
 		              pause="400"
 		              selected-object="vm.varAzulSelecionada"
 		              remote-url="/api/vardetails?="
 		              remote-url-data-field="result.getListaVariaveisDescReturn"
-		              title-field="nome"
-		              input-class="form-control form-control-small"> </angucomplete-alt>
+		              title-field="nome, nome_banco"
+		              input-class="form-control form-control-small"> </angucomplete-alt-->
 
 		<h3>Variavel Vermelha</h3>
-		<angucomplete-alt id="varvermelha"
+		<select ng-model="vm.redvar" ng-change="vm.selectRedVar()" class="form-control">
+                          <option ng-repeat="var in vm.redvarList" value="{{var.nome_banco}}" >{{var.nome}}</option>
+                        </select>
+		<!--angucomplete-alt id="varvermelha"
 		              placeholder="variavel vermelha"
 		              pause="400"
 		              selected-object="vm.varVermelhaSelecionada"
 		              remote-url="/api/vardetails?="
 		              remote-url-data-field="result.getListaVariaveisDescReturn"
-		              title-field="nome"
-		              input-class="form-control form-control-small"> </angucomplete-alt>
+		              title-field="nome, nome_banco"
+		              input-class="form-control form-control-small"> </angucomplete-alt-->
 
 	
 

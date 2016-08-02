@@ -10,6 +10,12 @@
 
 		var vm = this;
 
+		vm.bluevar;
+		vm.redvar;
+
+		vm.bluevarList = [];
+		vm.redvarList = [];
+
 		vm.tabulado = {
 			opc_data: "ano",
 			mes: [],
@@ -40,15 +46,16 @@
 
 		};
 
-		vm.varVermelhaSelecionada = function(d){
-			console.log("selecionou uma var vermelha", d);
-			vm.tabulado.vars[0] = [d.originalObject.nome_banco];
+		
+		vm.selectRedVar = function(){
+			vm.tabulado.vars[1] = vm.redvar; 
+			console.log(vm.tabulado.vars[1]);
 			load();
 		};
 
-		vm.varAzulSelecionada = function(d){
-			console.log("selecionou uma var azul", d);
-			vm.tabulado.vars[1] = [d.originalObject.nome_banco];
+		vm.selectBlueVar = function(){
+			vm.tabulado.vars[0] = vm.bluevar; 
+			console.log(vm.tabulado.vars[0]);
 			load();
 		};
 
@@ -66,8 +73,22 @@
 
 		}
 
+		function loadVars(){
+			sisamservice.getVardetails()
+			.success(function(data){
+				console.log("sucesso");
+				vm.bluevarList = data.result.getListaVariaveisDescReturn;
+				vm.redvarList = data.result.getListaVariaveisDescReturn;
+			})	
+			.error(function(data){
+				console.log("erro");
+				console.log(data);
+			});
+		}
+
 		$scope.$on('$viewContentLoaded', function() {
 		    load();
+		    loadVars();
 		});
 
 		
