@@ -234,7 +234,7 @@
 
 			for(k = 0; k < fields.length; k++){
 				current = fields[k]( array[j] );
-				if( current === "99999.0" || current === "99999.0" ){
+				if( current === "99999.0" || current === "99999" ){
 					invalid = true;
 				}
 			}

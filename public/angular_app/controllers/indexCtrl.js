@@ -91,20 +91,6 @@
 		    loadVars();
 		});
 
-		
-		
-		/*sisamservice.getAnos()
-			.success(function(data){
-				console.log("sucesso ao pegar anos");
-				vm.tabulado.ano = data.result.getAnosReturn;
-			})
-			.error(function(data){
-				console.log("erro ao pegar anos");
-				console.log(data);
-			});*/
-
-
-
 		vm.title = "SisamClient";
 
 	}
@@ -116,30 +102,3 @@
 
 })();
 
-/*var args = {
-
-		
-		opc_data:'ano',
-		mes:null,
-		ano:[
-			"2012-12-31"
-		],
-		//data_inicial:"2012-12-31",
-		//data_final:new Date(),
-
-		opc_estMun:'municipio',
-		estado:[
-		"SP"
-
-		],
-		municipio:[
-			"3976" //gid
-		],
-
-		vars:[
-		"geada"
-
-
-		]
-
-	};*/
